@@ -90,31 +90,58 @@ public class Character {
 	}
 	
 	private int getHP(String s){
+		
+	    int hpAdjust = 0;
+		switch(constitution){
+		case 12:
+		case 13:
+			hpAdjust = 1;
+			break;
+		case 14:
+		case 15:
+			hpAdjust = 2;
+			break;
+		case 16:
+		case 17:
+			hpAdjust = 3;
+			break;
+		case 18:
+		case 19:
+			hpAdjust = 4;
+			break;
+		case 20:
+		case 21:
+			hpAdjust = 5;
+			break;
+		default:
+			hpAdjust = 0;
+			break;
+		}
 		switch(s){
 			case "c":
 				dice c8 = new d8();
-				return c8.roll();
+				return c8.roll() + hpAdjust;
 			case "f":
 				dice f12 = new d12();
-				return f12.roll();
+				return f12.roll() + hpAdjust;
 			case "m":
 				dice m4 = new d4();
-				return m4.roll();
+				return m4.roll() + hpAdjust;
 			case "n":
 				dice n4 = new d4();
-				return n4.roll();
+				return n4.roll() + hpAdjust;
 			case "o":
 				dice o6 = new d6();
-				return o6.roll();
+				return o6.roll() + hpAdjust;
 			case "p":
 				dice p20 = new d20();
-				return p20.roll();
+				return p20.roll() + hpAdjust;
 			case "r":
 				dice r8 = new d8();
-				return r8.roll();
+				return r8.roll() + hpAdjust;
 			default:
 				dice a10 = new d10();
-				return a10.roll();
+				return a10.roll() + hpAdjust;
 		}
 	}
 }
