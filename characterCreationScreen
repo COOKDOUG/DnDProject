@@ -1,0 +1,173 @@
+package CharacterCreationScreen;
+
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import CharacterCreation.*;
+
+public class characterCreationScreen extends JFrame  {
+// Change Stat variables
+	private JTextField addressBar;
+	private String statChange1 = "";
+	private String statChange2 = "";
+// Character name
+	public String charName = "Zoga";
+	
+	private String[] statTypes = {"Strength", "Intellect", "Dexterity", "Wisdom", "Constitution", "Charisma"};
+	private JPanel display;	
+	private JPanel name;
+	
+	public characterCreationScreen(){
+		super ("Character Creation Screen");
+// Creates the character and stats
+		DnDCharacter c = new DnDCharacter(charName);
+// Creates and adds the address bar with the script
+		addressBar = new JTextField("Switch stats?  Enter first stat (ie Strength, Intellect)");
+		add(addressBar, BorderLayout.NORTH);
+// Adds action when user enters data and hits enter/return
+		addressBar.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent myEvent){
+					String enteredStat = myEvent.getActionCommand();
+					for (String s: statTypes){
+						if (s.equals(enteredStat)){
+							if (!statChange1.equals("")){
+								statChange2 = enteredStat;
+								switchStats(statChange1, statChange2, c);
+								remove(display);
+								display.removeAll();
+								displayName(charName);
+								displayStats(c);
+								add(new JScrollPane(display), BorderLayout.CENTER);
+								setVisible(true);
+								statChange1 = "";
+								statChange2 = "";
+								String userText = "Switch stats?  Enter first stat (ie Strength, Intellect)";
+								addressBar.setText(userText);
+								break;
+							} else{
+								statChange1 = enteredStat;
+								String userText = "Enter second stat";
+								addressBar.setText(userText);
+								break;
+							}
+						}
+						String userText = "Failed to enter a valid stat";
+						addressBar.setText(userText);
+					}
+				}
+			}
+		);
+
+		setSize(1000,500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+// Creates the empty middle space
+		display = new JPanel();
+// Adds the name and stats
+		displayName(charName);
+		displayStats(c);
+// Adds the display to the screen.
+		add(new JScrollPane(display));
+// Adds the save button
+		Button b = new Button("Save");
+		add(b,BorderLayout.SOUTH);
+//		b.addActionListener(arg0);
+
+		setVisible(true);
+	}
+	
+	private JPanel addStatPanel(String s){
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.CYAN);
+		return panel;
+	}
+	
+	private int[] getStat(String s, DnDCharacter c){
+		int[] values= {0,0};
+		switch (s){
+		case "Strength":
+			values[0] = c.getSTR();
+			values[1] = c.getSTRMod();
+			break;
+		case "Intellect":
+			values[0] = c.getINT();
+			values[1] = c.getINTMod();
+			break;
+		case "Dexterity":
+			values[0] = c.getDEX();
+			values[1] = c.getDEXMod();
+			break;
+		case "Wisdom":
+			values[0] = c.getWIS();
+			values[1] = c.getWISMod();
+			break;
+		case "Constitution":
+			values[0] = c.getCON();
+			values[1] = c.getCONMod();
+			break;
+		case "Charisma":
+			values[0] = c.getCHA();
+			values[1] = c.getCHAMod();
+			break;
+		default:
+			break;
+		}
+		return values;
+	}
+	
+	private void switchStats(String stat1, String stat2, DnDCharacter c){
+		int[] stat1Values= getStat(stat1, c);
+		int[] stat2Values= getStat(stat2, c);
+		setStats(stat1, c, stat2Values);
+		setStats(stat2, c, stat1Values);
+	}
+	
+	private void setStats(String s, DnDCharacter c, int[] values){
+		switch (s){
+		case "Strength":
+			c.setSTR(values[0]);
+			c.setSTRMod(values[1]);
+			break;
+		case "Intellect":
+			c.setINT(values[0]);
+			c.setINTMod(values[1]);
+			break;
+		case "Dexterity":
+			c.setDEX(values[0]);
+			c.setDEXMod(values[1]);
+			break;
+		case "Wisdom":
+			c.setWIS(values[0]);
+			c.setWISMod(values[1]);
+			break;
+		case "Constitution":
+			c.setCON(values[0]);
+			c.setCONMod(values[1]);
+			break;
+		case "Charisma":
+			c.setCHA(values[0]);
+			c.setCHAMod(values[1]);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void displayName(String charName){
+		name = new JPanel();
+		name.add(new JLabel(charName));
+		name.setBackground(Color.GREEN);
+		display.add(name);
+	}
+	private void displayStats(DnDCharacter c){
+		for (String s:statTypes){
+			JPanel panel = addStatPanel(s);
+			int[] statAndMod = getStat(s, c);
+			JLabel j = new JLabel(statAndMod[0]+" "+s+" Modifier: +"+statAndMod[1]);
+			panel.add(j);
+			display.add(panel);
+		}
+	}
+}
