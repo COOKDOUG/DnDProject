@@ -5,6 +5,8 @@ import Dice.*;
 import java.util.Scanner;
 
 public class Character {
+	
+	private String name;
 
 	private int strength;
 	private int dexterity;
@@ -18,7 +20,12 @@ public class Character {
 	
 	private int hitPoints;
 	
-	public Character (){
+	public Character (String charName){
+		// Character Name
+		name = charName;
+		System.out.println(name);
+		
+		// Character Stats
 		strength 		= getStats();
 		System.out.println(strength+" strength");
 		dexterity 		= getStats();
@@ -32,9 +39,11 @@ public class Character {
 		charisma 		= getStats();
 		System.out.println(charisma+" charisma");
 		
+		//Character Class
 		charClass		= getCharClass();
 		System.out.println(charClass+" charClass");
 		
+		//Character HP
 		hitPoints		= getHP(charClassAbbr);
 		System.out.println(hitPoints+" hitPoints");
 	}
