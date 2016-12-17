@@ -60,20 +60,20 @@ public class Character {
 		charClassAbbr = s.nextLine().toLowerCase();
 		s.close();
 		switch(charClassAbbr){
+		case "c":
+			return "Cleric";
 		case "f":
 			return "Fighter";
 		case "m":
 			return "Mage";
-		case "c":
-			return "Cleric";
-		case "r":
-			return "Ranger";
+		case "n":
+			return "Necromancer";
 		case "o":
 			return "Rogue";
 		case "p":
 			return "Paladin";
-		case "n":
-			return "Necromancer";
+		case "r":
+			return "Ranger";
 		default:
 			return "Adventurer";
 		}
@@ -82,6 +82,12 @@ public class Character {
 	
 	private int getHP(String s){
 		switch(s){
+			case "c":
+				dice c8 = new d8();
+				return c8.roll();
+			case "f":
+				dice f12 = new d12();
+				return f12.roll();
 			case "m":
 				dice m4 = new d4();
 				return m4.roll();
@@ -91,18 +97,12 @@ public class Character {
 			case "o":
 				dice o6 = new d6();
 				return o6.roll();
-			case "c":
-				dice c8 = new d8();
-				return c8.roll();
-			case "r":
-				dice r8 = new d8();
-				return r8.roll();
-			case "f":
-				dice f12 = new d12();
-				return f12.roll();
 			case "p":
 				dice p20 = new d20();
 				return p20.roll();
+			case "r":
+				dice r8 = new d8();
+				return r8.roll();
 			default:
 				dice a10 = new d10();
 				return a10.roll();
