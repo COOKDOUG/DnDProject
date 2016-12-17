@@ -101,8 +101,8 @@ public class Character {
 				dice f12 = new d12();
 				return f12.roll();
 			case "p":
-				dice f20 = new d20();
-				return f20.roll();
+				dice p20 = new d20();
+				return p20.roll();
 			default:
 				dice a10 = new d10();
 				return a10.roll();
