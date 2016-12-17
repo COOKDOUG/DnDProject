@@ -3,8 +3,14 @@ package CharacterCreation;
 public class CharacterMain {
 
 	public static void main(String[] args) {
+		createCharacter();
+	}
+	
+	public static void createCharacter(){
 
-		Character CharacterName = new Character();
+		String charName = "Zoga";
+		Character Char1 = new Character(charName);
+		
 	}
 
 }
